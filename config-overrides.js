@@ -12,10 +12,8 @@ module.exports = override(
     style: true,
   }),
   addLessLoader({
-    lessOptions: {
-      javascriptEnabled: true,
-      modifyVars: { "@primary-color": "#f20f71" },
-    },
+    javascriptEnabled: true,
+    modifyVars: { "@primary-color": "#f20f71" },
   }),
   addWebpackPlugin(new AntdDayjsWebpackPlugin())
 );

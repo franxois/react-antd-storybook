@@ -1,8 +1,9 @@
 {
-  "name": "my-app",
+  "name": "react-antd-storybook",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@storybook/preset-ant-design": "0.0.1",
     "@storybook/preset-create-react-app": "^2.1.1",
     "@storybook/react": "^5.3.18",
     "@testing-library/jest-dom": "^5.5.0",
@@ -17,7 +18,7 @@
     "babel-plugin-import": "^1.13.0",
     "customize-cra": "^1.0.0-alpha.0",
     "less": "^3.11.1",
-    "less-loader": "^6.0.0",
+    "less-loader": "^5.0.0",
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.6",
     "react-dom": "^16.13.1",
