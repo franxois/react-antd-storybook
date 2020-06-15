@@ -13,13 +13,6 @@ module.exports = {
     },
     {
       name: "@storybook/preset-ant-design",
-      options: {
-        lessOptions: {
-          modifyVars: {
-            "primary-color": "#f20f71",
-          },
-        },
-      },
     },
   ],
   webpackFinal: (config) => {
