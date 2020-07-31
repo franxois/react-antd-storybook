@@ -16,9 +16,7 @@ const App = () => (
   <SessionProvider>
     <Router>
       <Routes>
-        <PrivateRoute path="/ui">
-          <Ui />
-        </PrivateRoute>
+        <PrivateRoute path="/ui/*" element={<Ui />} />
         <Route path="/login">
           <Login />
         </Route>

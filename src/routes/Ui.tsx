@@ -6,9 +6,18 @@ import { HomeOutlined } from "@ant-design/icons";
 
 import "./Ui.less";
 import { useSession } from "../contexts/Session";
+import { Link, Routes, Route, useParams } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 // const { SubMenu } = Menu;
+
+const pages = [1, 2, 3];
+
+const IdShow: React.FC = () => {
+  const { id } = useParams();
+
+  return <div>Show ID {JSON.stringify(id)}</div>;
+};
 
 const Ui: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -24,7 +33,7 @@ const Ui: React.FC = () => {
         <div className="logo" />
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<HomeOutlined />}>
-            Home
+            <Link to="/ui">Home</Link>
           </Menu.Item>
           {/* <Menu.Item key="2" icon={<DesktopOutlined />}>
               Option 2
@@ -63,6 +72,19 @@ const Ui: React.FC = () => {
                 logout
               </Button>
             </p>
+
+            <nav>
+              <ul>
+                {pages.map((p) => (
+                  <li key={p}>
+                    <Link to={`${p}`}>{p}</Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <Routes>
+              <Route path=":id" element={<IdShow />}></Route>
+            </Routes>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}></Footer>
