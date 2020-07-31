@@ -5,12 +5,14 @@ import { Layout, Menu, Breadcrumb } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
 
 import "./ui.less";
+import { useSession } from "../contexts/Session";
 
 const { Header, Content, Footer, Sider } = Layout;
 // const { SubMenu } = Menu;
 
 const Ui: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const { session, dispatch } = useSession();
 
   return (
     <Layout style={{ minHeight: "100vh" }} className="ui-layout">
@@ -51,7 +53,15 @@ const Ui: React.FC = () => {
             style={{ padding: 24, minHeight: 360 }}
           >
             <p>
-              Ho hi ! <Button type="primary">Button</Button>
+              Ho hi ! Loggedin ? {session.loggedIn ? "yes" : "no"}
+              <Button
+                type="primary"
+                onClick={() => {
+                  dispatch({ type: "login" });
+                }}
+              >
+                Button
+              </Button>
             </p>
           </div>
         </Content>

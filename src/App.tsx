@@ -5,20 +5,23 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+import { SessionProvider } from "./contexts/Session";
 import Ui from "./routes/ui";
 import "./App.less";
 
 const App = () => (
-  <Router>
-    <Routes>
-      <Route path="/ui">
-        <Ui />
-      </Route>
-      <Route path="/">
-        <Navigate to="/ui"></Navigate>
-      </Route>
-    </Routes>
-  </Router>
+  <SessionProvider>
+    <Router>
+      <Routes>
+        <Route path="/ui">
+          <Ui />
+        </Route>
+        <Route path="/">
+          <Navigate to="/ui"></Navigate>
+        </Route>
+      </Routes>
+    </Router>
+  </SessionProvider>
 );
 
 export default App;
