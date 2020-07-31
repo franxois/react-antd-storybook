@@ -4,7 +4,7 @@ import { Button } from "antd";
 import { Layout, Menu, Breadcrumb } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
 
-import "./ui.less";
+import "./Ui.less";
 import { useSession } from "../contexts/Session";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -57,10 +57,10 @@ const Ui: React.FC = () => {
               <Button
                 type="primary"
                 onClick={() => {
-                  dispatch({ type: "login" });
+                  dispatch({ type: "logoff" });
                 }}
               >
-                Button
+                logout
               </Button>
             </p>
           </div>
