@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "antd";
 
 import { Layout, Menu, Breadcrumb } from "antd";
-import { HomeOutlined } from "@ant-design/icons";
+import { HomeOutlined, LogoutOutlined } from "@ant-design/icons";
 
 import "./Ui.less";
 import { useSession } from "../contexts/Session";
@@ -15,13 +15,12 @@ const pages = [1, 2, 3];
 
 const IdShow: React.FC = () => {
   const { id } = useParams();
-
   return <div>Show ID {JSON.stringify(id)}</div>;
 };
 
 const Ui: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const { session, dispatch } = useSession();
+  const { dispatch } = useSession();
 
   return (
     <Layout style={{ minHeight: "100vh" }} className="ui-layout">
@@ -51,7 +50,17 @@ const Ui: React.FC = () => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }} />
+        <Header className="site-layout-background" style={{ padding: 0 }}>
+          <Button
+            style={{ float: "right", margin: "1rem 1rem" }}
+            type="primary"
+            onClick={() => {
+              dispatch({ type: "logoff" });
+            }}
+          >
+            <LogoutOutlined /> logout
+          </Button>
+        </Header>
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -61,18 +70,6 @@ const Ui: React.FC = () => {
             className="site-layout-background"
             style={{ padding: 24, minHeight: 360 }}
           >
-            <p>
-              Ho hi ! Loggedin ? {session.loggedIn ? "yes" : "no"}
-              <Button
-                type="primary"
-                onClick={() => {
-                  dispatch({ type: "logoff" });
-                }}
-              >
-                logout
-              </Button>
-            </p>
-
             <nav>
               <ul>
                 {pages.map((p) => (
