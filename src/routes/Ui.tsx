@@ -19,6 +19,53 @@ const IdShow: React.FC = () => {
   return <div>Show ID {JSON.stringify(id)}</div>;
 };
 
+const Modal1 = () => (
+  <ModalLayout>
+    modal directe
+    <MainPage />
+  </ModalLayout>
+);
+const Modal2 = () => (
+  <Modal>
+    modal dans un portal
+    <MainPage />
+  </Modal>
+);
+
+const MainPage = () => (
+  <>
+    <Breadcrumb style={{ margin: "16px 0" }}>
+      <Breadcrumb.Item>Home</Breadcrumb.Item>
+      {/* <Breadcrumb.Item>Bill</Breadcrumb.Item> */}
+    </Breadcrumb>
+    <div
+      className="site-layout-background"
+      style={{ padding: 24, minHeight: 360 }}
+    >
+      <nav>
+        <ul>
+          {pages.map((p) => (
+            <li key={p}>
+              <Link to={`${p}`}>{p}</Link>
+            </li>
+          ))}
+          <li key="modal1">
+            <Link to="modal1">modal</Link>
+          </li>
+          <li key="modal2">
+            <Link to="modal2">modal dans portal</Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="modal1/*" element={<Modal1 />}></Route>
+        <Route path="modal2/*" element={<Modal2 />}></Route>
+        <Route path=":id" element={<IdShow />}></Route>
+      </Routes>
+    </div>
+  </>
+);
+
 const Ui: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { dispatch } = useSession();
@@ -63,41 +110,7 @@ const Ui: React.FC = () => {
           </Button>
         </Header>
         <Content style={{ margin: "0 16px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            {/* <Breadcrumb.Item>Bill</Breadcrumb.Item> */}
-          </Breadcrumb>
-          <div
-            className="site-layout-background"
-            style={{ padding: 24, minHeight: 360 }}
-          >
-            <nav>
-              <ul>
-                {pages.map((p) => (
-                  <li key={p}>
-                    <Link to={`${p}`}>{p}</Link>
-                  </li>
-                ))}
-                <li key="modal1">
-                  <Link to="modal1">modal</Link>
-                </li>
-                <li key="modal2">
-                  <Link to="modal2">modal dans portal</Link>
-                </li>
-              </ul>
-            </nav>
-            <Routes>
-              <Route
-                path="modal1"
-                element={<ModalLayout>modal directe</ModalLayout>}
-              ></Route>
-              <Route
-                path="modal2"
-                element={<Modal>modal dans un portal</Modal>}
-              ></Route>
-              <Route path=":id" element={<IdShow />}></Route>
-            </Routes>
-          </div>
+          <MainPage />
         </Content>
         <Footer style={{ textAlign: "center" }}></Footer>
       </Layout>
