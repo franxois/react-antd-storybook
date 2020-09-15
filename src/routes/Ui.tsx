@@ -7,6 +7,7 @@ import { HomeOutlined, LogoutOutlined } from "@ant-design/icons";
 import "./Ui.less";
 import { useSession } from "../contexts/Session";
 import { Link, Routes, Route, useParams } from "react-router-dom";
+import { Modal, ModalLayout } from "../components/Modal";
 
 const { Header, Content, Footer, Sider } = Layout;
 // const { SubMenu } = Menu;
@@ -77,9 +78,23 @@ const Ui: React.FC = () => {
                     <Link to={`${p}`}>{p}</Link>
                   </li>
                 ))}
+                <li key="modal1">
+                  <Link to="modal1">modal</Link>
+                </li>
+                <li key="modal2">
+                  <Link to="modal2">modal dans portal</Link>
+                </li>
               </ul>
             </nav>
             <Routes>
+              <Route
+                path="modal1"
+                element={<ModalLayout>modal directe</ModalLayout>}
+              ></Route>
+              <Route
+                path="modal2"
+                element={<Modal>modal dans un portal</Modal>}
+              ></Route>
               <Route path=":id" element={<IdShow />}></Route>
             </Routes>
           </div>
