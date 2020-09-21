@@ -3,23 +3,27 @@ import { createPortal } from "react-dom";
 import { Modal as ModalAntd } from "antd";
 import { useNavigate } from "react-router-dom";
 
-export const ModalLayout: React.FC = ({ children }) => {
+export const ModalLayout: React.FC = (props) => {
   const [isVisible, setVisible] = useState(true);
   const navigate = useNavigate();
+  const close_timeout = 200;
   return (
     <ModalAntd
       visible={isVisible}
       onOk={() => {
         setVisible(false);
-        navigate(-1);
+        setTimeout(() => {
+          navigate(-1);
+        }, close_timeout);
       }}
       onCancel={() => {
         setVisible(false);
-        navigate(-1);
+        setTimeout(() => {
+          navigate(-1);
+        }, close_timeout);
       }}
-    >
-      {children}
-    </ModalAntd>
+      {...props}
+    ></ModalAntd>
   );
 };
 
