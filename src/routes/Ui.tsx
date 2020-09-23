@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Button } from "antd";
 
 import { Layout, Menu, Breadcrumb } from "antd";
-import { HomeOutlined, LogoutOutlined } from "@ant-design/icons";
+import { UserOutlined, HomeOutlined, LogoutOutlined } from "@ant-design/icons";
 
 import "./Ui.less";
 import { useSession } from "../contexts/Session";
-import { Link, Routes, Route, useParams } from "react-router-dom";
+import { Link, Routes, Route, useParams, Outlet } from "react-router-dom";
 import { Modal, ModalLayout } from "../components/Modal";
+
+import Users from "./Users";
 
 const { Header, Content, Footer, Sider } = Layout;
 // const { SubMenu } = Menu;
@@ -32,6 +34,27 @@ const Modal2 = () => (
   </Modal>
 );
 
+const Home = () => (
+  <>
+    <nav>
+      <ul>
+        {pages.map((p) => (
+          <li key={p}>
+            <Link to={`${p}`}>{p}</Link>
+          </li>
+        ))}
+        <li key="modal1">
+          <Link to="modal1">modal</Link>
+        </li>
+        <li key="modal2">
+          <Link to="modal2">modal dans portal</Link>
+        </li>
+      </ul>
+    </nav>
+    <Outlet />
+  </>
+);
+
 const MainPage = () => (
   <>
     <Breadcrumb style={{ margin: "16px 0" }}>
@@ -42,25 +65,13 @@ const MainPage = () => (
       className="site-layout-background"
       style={{ padding: 24, minHeight: 360 }}
     >
-      <nav>
-        <ul>
-          {pages.map((p) => (
-            <li key={p}>
-              <Link to={`${p}`}>{p}</Link>
-            </li>
-          ))}
-          <li key="modal1">
-            <Link to="modal1">modal</Link>
-          </li>
-          <li key="modal2">
-            <Link to="modal2">modal dans portal</Link>
-          </li>
-        </ul>
-      </nav>
       <Routes>
-        <Route path="modal1/*" element={<Modal1 />}></Route>
-        <Route path="modal2/*" element={<Modal2 />}></Route>
-        <Route path=":id" element={<IdShow />}></Route>
+        <Route path="/" element={<Home />}>
+          <Route path="modal1/*" element={<Modal1 />}></Route>
+          <Route path="modal2/*" element={<Modal2 />}></Route>
+          <Route path=":id" element={<IdShow />}></Route>
+        </Route>
+        <Route path="users/*" element={<Users />}></Route>
       </Routes>
     </div>
   </>
@@ -80,7 +91,10 @@ const Ui: React.FC = () => {
         <div className="logo" />
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<HomeOutlined />}>
-            <Link to="/ui">Home</Link>
+            <Link to="">Home</Link>
+          </Menu.Item>
+          <Menu.Item key="2" icon={<UserOutlined />}>
+            <Link to="users">Users</Link>
           </Menu.Item>
           {/* <Menu.Item key="2" icon={<DesktopOutlined />}>
               Option 2
