@@ -6,6 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { SessionProvider } from "./contexts/Session";
+import { UsersProvider } from "./contexts/UsersStore";
 import Ui from "./routes/Ui";
 import { Login } from "./routes/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
@@ -16,7 +17,14 @@ const App = () => (
   <SessionProvider>
     <Router>
       <Routes>
-        <PrivateRoute path="/ui/*" element={<Ui />} />
+        <PrivateRoute
+          path="/ui/*"
+          element={
+            <UsersProvider>
+              <Ui />
+            </UsersProvider>
+          }
+        />
         <Route path="/login">
           <Login />
         </Route>

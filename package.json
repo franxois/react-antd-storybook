@@ -19,6 +19,7 @@
     "craco-fast-refresh": "^1.0.2",
     "craco-less": "^1.17.0",
     "dayjs": "1.8.35",
+    "formik": "^2.1.5",
     "history": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
