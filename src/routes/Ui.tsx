@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { Button } from "antd";
 
 import { Layout, Menu, Breadcrumb } from "antd";
-import { UserOutlined, HomeOutlined, LogoutOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  HomeOutlined,
+  LogoutOutlined,
+  NotificationOutlined,
+} from "@ant-design/icons";
 
 import "./Ui.less";
 import { useSession } from "../contexts/Session";
@@ -10,6 +15,7 @@ import { Link, Routes, Route, useParams, Outlet } from "react-router-dom";
 import { Modal, ModalLayout } from "../components/Modal";
 
 import Users from "./Users";
+import Notify from "./Notify";
 
 const { Header, Content, Footer, Sider } = Layout;
 // const { SubMenu } = Menu;
@@ -72,6 +78,7 @@ const MainPage = () => (
           <Route path=":id" element={<IdShow />}></Route>
         </Route>
         <Route path="users/*" element={<Users />}></Route>
+        <Route path="notify/*" element={<Notify />}></Route>
       </Routes>
     </div>
   </>
@@ -95,6 +102,9 @@ const Ui: React.FC = () => {
           </Menu.Item>
           <Menu.Item key="2" icon={<UserOutlined />}>
             <Link to="users">Users</Link>
+          </Menu.Item>
+          <Menu.Item key="3" icon={<NotificationOutlined />}>
+            <Link to="notify">Notify</Link>
           </Menu.Item>
           {/* <Menu.Item key="2" icon={<DesktopOutlined />}>
               Option 2
