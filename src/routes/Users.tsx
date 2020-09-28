@@ -1,5 +1,5 @@
-import { Formik, Form, Field } from "formik";
-import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import React, { Fragment } from "react";
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { User, useUsers } from "../contexts/UsersStore";
 
@@ -24,6 +24,12 @@ const UsersList = () => {
     </div>
   );
 };
+
+const usersFields = [
+  { label: "First Name", name: "firstName", placeholder: "John" },
+  { label: "Last Name", name: "lastName", placeholder: "Doe" },
+];
+
 const UsersCreate = () => {
   const userStore = useUsers();
   const navigate = useNavigate();
@@ -40,22 +46,80 @@ const UsersCreate = () => {
       }}
     >
       <Form>
-        <label htmlFor="firstName">First Name</label>
-        <Field id="firstName" name="firstName" placeholder="John" />
-        <label htmlFor="lastName">Last Name</label>
-        <Field id="lastName" name="lastName" placeholder="Doe" />
+        {usersFields.map(ToField)}
         <button type="submit">Submit</button>
       </Form>
     </Formik>
   );
 };
+
+function disableField<U>(field: U): U & { disabled: "disabled" } {
+  return { ...field, disabled: "disabled" };
+}
+
+const ToField = ({
+  label,
+  name,
+  placeholder,
+  disabled,
+}: {
+  label: string;
+  name: string;
+  placeholder: string;
+  disabled?: "disabled";
+}) => {
+  return (
+    <Fragment key={name}>
+      <label htmlFor={name}>{label}</label>
+      <Field id={name} {...{ placeholder, name, disabled }} />
+      <ErrorMessage name={name} />
+    </Fragment>
+  );
+};
+
 const UsersView = () => {
   const { idUser } = useParams();
-  return <div>view user #{idUser}</div>;
+  const userStore = useUsers();
+
+  return (
+    <div>
+      view user #{idUser}
+      <Formik<User>
+        initialValues={{
+          ...userStore.users[parseInt(idUser)],
+        }}
+        onSubmit={() => {}}
+      >
+        <Form>{usersFields.map(disableField).map(ToField)}</Form>
+      </Formik>
+    </div>
+  );
 };
 const UsersEdit = () => {
   const { idUser } = useParams();
-  return <div>edit user #{idUser}</div>;
+  const userStore = useUsers();
+  const navigate = useNavigate();
+
+  return (
+    <Formik<User>
+      initialValues={{
+        ...userStore.users[parseInt(idUser)],
+      }}
+      onSubmit={(values) => {
+        userStore.dispatch({
+          type: "edit",
+          idUser: parseInt(idUser),
+          user: values,
+        });
+        navigate(-1);
+      }}
+    >
+      <Form>
+        {usersFields.map(ToField)}
+        <button type="submit">Edit</button>
+      </Form>
+    </Formik>
+  );
 };
 
 export default function Users() {
