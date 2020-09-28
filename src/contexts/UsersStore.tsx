@@ -8,7 +8,20 @@ type Users = User[];
 
 const initialSession: User[] = [];
 
-type UsersStoreActions = { type: "add"; user: User };
+type UsersStoreActions =
+  | { type: "add"; user: User }
+  | { type: "edit"; idUser: number; user: User };
+
+const usersStoreReducer = (users: Users, action: UsersStoreActions) => {
+  switch (action.type) {
+    case "add":
+      return [...users, { ...action.user }];
+    case "edit":
+      const newList = [...users];
+      newList[action.idUser] = { ...action.user };
+      return newList;
+  }
+};
 
 const UsersCtx = React.createContext<{
   users: Users;
@@ -16,16 +29,7 @@ const UsersCtx = React.createContext<{
 }>({ users: initialSession, dispatch: () => {} });
 
 export const UsersProvider: React.FC = ({ children }) => {
-  const [users, dispatch] = useReducer(
-    (users: Users, action: UsersStoreActions) => {
-      switch (action.type) {
-        case "add":
-          return [...users, { ...action.user }];
-      }
-    },
-    initialSession
-  );
-
+  const [users, dispatch] = useReducer(usersStoreReducer, initialSession);
   return (
     <UsersCtx.Provider value={{ users, dispatch }}>
       {children}
