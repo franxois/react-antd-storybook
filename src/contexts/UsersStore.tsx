@@ -4,15 +4,15 @@ export interface User {
   firstName: string;
   lastName: string;
 }
-type Users = User[];
+type UsersList = User[];
 
-const initialSession: User[] = [];
+const initialSession: UsersList = [];
 
 type UsersStoreActions =
   | { type: "add"; user: User }
   | { type: "edit"; idUser: number; user: User };
 
-const usersStoreReducer = (users: Users, action: UsersStoreActions) => {
+const usersStoreReducer = (users: UsersList, action: UsersStoreActions) => {
   switch (action.type) {
     case "add":
       return [...users, { ...action.user }];
@@ -24,7 +24,7 @@ const usersStoreReducer = (users: Users, action: UsersStoreActions) => {
 };
 
 const UsersCtx = React.createContext<{
-  users: Users;
+  users: UsersList;
   dispatch: React.Dispatch<UsersStoreActions>;
 }>({ users: initialSession, dispatch: () => {} });
 
