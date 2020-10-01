@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import React, { Fragment } from "react";
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { User, useUsers } from "../contexts/UsersStore";
+import { Input, Button } from "antd";
 
 const UsersList = () => {
   const userStore = useUsers();
@@ -26,8 +27,8 @@ const UsersList = () => {
 };
 
 const usersFields = [
-  { label: "First Name", name: "firstName", placeholder: "John" },
-  { label: "Last Name", name: "lastName", placeholder: "Doe" },
+  { label: "First Name", name: "firstName", placeholder: "John", as: Input },
+  { label: "Last Name", name: "lastName", placeholder: "Doe", as: Input },
 ];
 
 const UsersCreate = () => {
@@ -47,7 +48,9 @@ const UsersCreate = () => {
     >
       <Form>
         {usersFields.map(ToField)}
-        <button type="submit">Submit</button>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
       </Form>
     </Formik>
   );
@@ -62,16 +65,18 @@ const ToField = ({
   name,
   placeholder,
   disabled,
+  as,
 }: {
   label: string;
   name: string;
   placeholder: string;
   disabled?: "disabled";
+  as: React.ComponentType;
 }) => {
   return (
     <Fragment key={name}>
       <label htmlFor={name}>{label}</label>
-      <Field id={name} {...{ placeholder, name, disabled }} />
+      <Field id={name} {...{ placeholder, name, disabled, as }} />
       <ErrorMessage name={name} />
     </Fragment>
   );
@@ -116,7 +121,9 @@ const UsersEdit = () => {
     >
       <Form>
         {usersFields.map(ToField)}
-        <button type="submit">Edit</button>
+        <Button type="primary" htmlType="submit">
+          Edit
+        </Button>
       </Form>
     </Formik>
   );
