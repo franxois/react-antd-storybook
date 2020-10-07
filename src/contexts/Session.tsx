@@ -2,11 +2,12 @@ import React, { useReducer, useContext } from "react";
 
 interface Session {
   loggedIn: boolean;
+  username: string;
 }
 
-const initialSession = { loggedIn: false };
+const initialSession = { loggedIn: false, username: "" };
 
-type SessionActions = { type: "login" } | { type: "logoff" };
+type SessionActions = { type: "loginAsAdmin" } | { type: "logoff" };
 
 const SessionCtx = React.createContext<{
   session: Session;
@@ -17,10 +18,10 @@ export const SessionProvider: React.FC = ({ children }) => {
   const [session, dispatch] = useReducer(
     (session: Session, action: SessionActions) => {
       switch (action.type) {
-        case "login":
-          return { ...session, loggedIn: true };
+        case "loginAsAdmin":
+          return { ...session, loggedIn: true, username: "admin" };
         case "logoff":
-          return { ...session, loggedIn: false };
+          return { ...session, loggedIn: false, username: "" };
         default:
           throw new Error();
       }

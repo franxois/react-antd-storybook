@@ -12,13 +12,13 @@ export const Login: React.FC = () => {
     <Button
       type="primary"
       onClick={() => {
-        dispatch({ type: "login" });
+        dispatch({ type: "loginAsAdmin" });
         navigate("/");
       }}
       className="center"
     >
       <LoginOutlined />
-      Login
+      Login as admin
     </Button>
   );
 };
