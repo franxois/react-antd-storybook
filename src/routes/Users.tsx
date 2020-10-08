@@ -4,6 +4,8 @@ import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { User, useUsers } from "../contexts/UsersStore";
 import { Input, Button } from "antd";
 
+import "./Users.less";
+
 const UsersList = () => {
   const userStore = useUsers();
 
