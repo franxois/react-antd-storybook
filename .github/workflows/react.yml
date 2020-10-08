@@ -19,6 +19,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "14.x"
+      # Build sub lib
+      - run: npm --prefix lib/ui-library ci
+      - run: npm --prefix lib/ui-library run build
       - run: npm ci
       - run: npm test
         env:
