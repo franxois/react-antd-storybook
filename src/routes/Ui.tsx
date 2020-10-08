@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown } from "antd";
+import { Dropdown, Layout } from "antd";
 
 import { Menu, Breadcrumb, Avatar } from "antd";
 import {
@@ -16,6 +16,7 @@ import { Modal, ModalLayout } from "../components/Modal";
 import { MainLayout } from "../components/MainLayout";
 import Users from "./Users";
 import Notify from "./Notify";
+import { sayHello } from "ui-library";
 
 const pages = [1, 2, 3];
 
@@ -109,14 +110,18 @@ const Ui: React.FC = () => {
       </Menu.Item>
     </Menu>
   );
-  const headerContent = (
-    <Dropdown overlay={avatarMenu} arrow>
-      <Avatar size={64} icon={<UserOutlined />} />
-    </Dropdown>
+  const header = (
+    <Layout.Header className="site-layout-background">
+      <Dropdown overlay={avatarMenu} arrow>
+        <Avatar size={32} icon={<UserOutlined />} />
+      </Dropdown>
+    </Layout.Header>
   );
 
+  sayHello();
+
   return (
-    <MainLayout menu={menu} headerContent={headerContent}>
+    <MainLayout menu={menu} header={header}>
       <MainPage />
     </MainLayout>
   );
