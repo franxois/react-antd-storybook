@@ -30,6 +30,8 @@
     "ui-library": "file:./lib/ui-library"
   },
   "scripts": {
+    "postinstall": "npm i --prefix lib/ui-library",
+    "prestart": "npm run build --prefix lib/ui-library",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "craco start",
     "build": "craco build",
