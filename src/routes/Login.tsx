@@ -4,7 +4,7 @@ import { useSession } from "../contexts/Session";
 import { useNavigate } from "react-router-dom";
 import { LoginOutlined } from "@ant-design/icons";
 
-export const Login: React.FC = () => {
+const Login: React.FC = () => {
   const { dispatch } = useSession();
   const navigate = useNavigate();
 
@@ -22,3 +22,5 @@ export const Login: React.FC = () => {
     </Button>
   );
 };
+
+export default Login

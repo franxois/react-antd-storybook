@@ -4,6 +4,6 @@ import App from "./App";
 
 test("renders a button", () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/Login/i);
+  const linkElement = getByText(/Loading/i);
   expect(linkElement).toBeInTheDocument();
 });
